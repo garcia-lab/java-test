@@ -1,4 +1,3 @@
-# jenkins-calculator
-xxxx   yyyy
-testing hook
-xxx 
+# java-test
+
+A sample java project for testing purposes.

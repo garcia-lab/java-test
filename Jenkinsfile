@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('checkout') {
       steps {
-        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/narasimhavuppala/jenkins-calculator.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://ghe.io/colossus9-test-org/java-test.git']]])
         echo 'checkout stage'
       }
     }
@@ -13,7 +13,7 @@ pipeline {
         echo 'Build stage'
       }
     }
-    stage('Aprove') {
+    stage('Approve') {
       input {
         message 'Should we continue?'
         id 'Yes, we should.'

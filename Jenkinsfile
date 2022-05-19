@@ -53,9 +53,7 @@ pipeline {
   post {
     always {
       echo 'reached post section'
-
     }
-
   }
   options {
     timeout(time: 1, unit: 'HOURS')

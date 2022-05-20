@@ -1,19 +1,21 @@
 pipeline {
   agent any
   stages {
-    stage('checkout') {
+    stage('Checkout') {
       steps {
+        echo 'Stage: Checkout (Start)'
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://ghe.io/colossus9-test-org/java-test.git']]])
-        echo 'checkout stage'
+        echo 'Stage: Checkout (End)'
       }
     }
     stage('Build') {
       steps {
+        echo 'Stage: Build (Start)'
         bat 'mvn -T 3 clean install'
-        echo 'Build stage'
+        echo 'Stage: Build (End)'
       }
     }
-    stage('Approve') {
+    stage('Get input') {
       input {
         message 'Should we continue?'
         id 'Yes, we should.'
@@ -23,36 +25,41 @@ pipeline {
         }
       }
       steps {
+        echo 'Stage: Get input (Start)'
         echo "Hello, ${PERSON}, nice to meet you."
+        echo 'Stage: Get input (Done)'
       }
     }
-    stage('publish Junit') {
+    stage('Publish Junit') {
       steps {
+        echo 'Stage: Publish Junit (Start)'
         cobertura(coberturaReportFile: 'target/site/cobertura/coverage.xml', conditionalCoverageTargets: '70, 0, 0', lineCoverageTargets: '80, 0, 0', methodCoverageTargets: '80, 0, 0', sourceEncoding: 'ASCII')
-        echo 'Unit stage'
+        echo 'Stage: Publish Junit (End)'
       }
     }
-    stage('parallel') {
+    stage('Parallel') {
       parallel {
-        stage('coverage') {
+        stage('Coverage') {
           steps {
-            echo 'coverage stage'
+            echo 'Stage: Coverage (Start)'
+            echo 'Stage: Coverage (End)'
           }
         }
-        stage('pmd') {
+        stage('Parallel stage') {
           steps {
-            echo 'pmd stage'
+            echo 'Stage: Parallel stage (Start)'
+            echo 'Stage: Parallel stage (End)'
           }
         }
       }
     }
   }
   tools {
-    maven 'Maven3'
+    maven 'maven-auto'
   }
   post {
     always {
-      echo 'reached post section'
+      echo 'Reached the post section'
     }
   }
   options {

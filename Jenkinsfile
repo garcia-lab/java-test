@@ -4,7 +4,7 @@ pipeline {
     stage('Checkout') {
       steps {
         echo 'Stage: Checkout (Start)'
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://ghe.io/colossus9-test-org/java-test.git']]])
+        checkout([$class: 'Default', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://ghe.io/colossus9-test-org/java-test.git']]])
         echo 'Stage: Checkout (End)'
       }
     }
